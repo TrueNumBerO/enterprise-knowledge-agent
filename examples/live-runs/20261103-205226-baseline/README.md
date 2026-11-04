@@ -1,0 +1,7 @@
+# 首轮真实评测存档
+
+本目录保留适配器修复前的真实评测：9/13通过。live-evaluation.json和live-outputs中的文件按原样复制，没有重写或覆盖原始回答。
+
+原报告的record字段保留运行时路径；查阅本轮实际记录时请使用本目录下live-outputs中的同名文件，而不是项目examples/live-outputs中的最新版本。source_sha256对应首轮代码，不应与修复后的源码混为一谈。
+
+发现的问题：冲突/改写/报销金额上限在模型响应解析处中断；重放冲突失败点确认模型一次返回多个read调用。年假年度额度场景选择incomplete而非needs_clarification。离线测试通过不能替代这些真实模型验证。

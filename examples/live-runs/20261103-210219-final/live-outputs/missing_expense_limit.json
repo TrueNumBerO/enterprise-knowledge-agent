@@ -1,0 +1,180 @@
+{
+  "input": {
+    "id": "missing_expense_limit",
+    "question": "报销额度上限多少？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "同领域资料不足",
+      "引用必须支持具体问题"
+    ]
+  },
+  "output": {
+    "question": "报销额度上限多少？",
+    "status": "needs_clarification",
+    "answer": "现有资料未说明报销金额上限。请补充报销额度及适用条件的制度原文。",
+    "citations": [
+      {
+        "doc_id": "D06",
+        "version_date": "2026-04-01",
+        "quote": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。"
+      }
+    ],
+    "gaps": [
+      "缺少报销金额上限及适用条件的资料；报销期限不能作为金额上限。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "报销额度上限"
+        },
+        "reason": "查找报销额度上限相关制度",
+        "observation": {
+          "ok": true,
+          "query": "报销额度上限",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 8.8755
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 8.8755
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 8.8755
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 8.8755
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D01, D02, D03, D06"
+      },
+      {
+        "step": 2,
+        "action": "search",
+        "arguments": {
+          "query": "报销金额上限 标准 差旅 招待 费用限额"
+        },
+        "reason": "检索结果均为期限与流程，需补搜金额上限",
+        "observation": {
+          "ok": true,
+          "query": "报销金额上限 标准 差旅 招待 费用限额",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 9.8871
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 9.8871
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 9.8871
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 8.8755
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D01, D02, D03, D06"
+      },
+      {
+        "step": 3,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D06"
+        },
+        "reason": "模型本轮返回2个工具调用，按返回顺序只执行首个；其余不执行、不排队，下一轮根据新观察重新决策。确认资料库是否覆盖金额上限主题及适用范围说明",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D06",
+            "version_date": "2026-04-01",
+            "title": "报销规则适用范围核验说明（合成）",
+            "content": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+            "topic": "expense_scope",
+            "facts": [],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D06，版本 2026-04-01，59 字符"
+      },
+      {
+        "step": 4,
+        "action": "finish",
+        "arguments": {
+          "status": "needs_clarification",
+          "answer": "现有资料中未包含任何关于报销金额/额度上限的规定。检索到的制度仅涉及报销期限（D01：30天；D02：15天）、报销流程与材料（D03）以及适用范围核验说明（D06），均未给出金额上限。请补充说明您所指的报销类型（如差旅、业务招待、办公采购等）或提供对应的费用标准制度，以便进一步查证。",
+          "citations": [
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "quote": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。"
+            }
+          ],
+          "gaps": [
+            "资料库中没有报销金额/额度上限的相关制度",
+            "需明确报销类型（差旅、招待、办公等）以定位对应费用标准"
+          ]
+        },
+        "reason": "两轮检索均只命中期限、流程类文档，无金额上限事实，需向用户确认报销类型或补充制度来源。",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 4
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

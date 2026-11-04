@@ -1,0 +1,176 @@
+[
+  {
+    "id": "normal",
+    "question": "年假需要提前多久申请？",
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D04"
+    ],
+    "expected_contains": [
+      "3个工作日"
+    ],
+    "acceptance": [
+      "明确答案"
+    ]
+  },
+  {
+    "id": "conflict",
+    "question": "报销期限多久？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "文档冲突",
+      "资料不足"
+    ]
+  },
+  {
+    "id": "out_of_scope",
+    "question": "火星表面最高温度是多少？",
+    "expected_status": "out_of_scope",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "资料外问题",
+      "资料不足"
+    ]
+  },
+  {
+    "id": "paraphrase",
+    "question": "垫付费用以后最迟几天内报账？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "改写后的相似问题"
+    ]
+  },
+  {
+    "id": "context",
+    "question": "那需要哪些材料？",
+    "history": [
+      {
+        "role": "user",
+        "content": "我想了解报销流程。"
+      },
+      {
+        "role": "assistant",
+        "content": "可以查询报销申请流程和所需材料。"
+      }
+    ],
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D03"
+    ],
+    "expected_contains": [
+      "费用申请单",
+      "发票"
+    ],
+    "acceptance": [
+      "上下文追问"
+    ]
+  },
+  {
+    "id": "transient_search_failure",
+    "question": "年假需要提前多久申请？",
+    "fail_searches": 1,
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D04"
+    ],
+    "acceptance": [
+      "工具失败",
+      "错误后恢复"
+    ]
+  },
+  {
+    "id": "persistent_search_failure",
+    "question": "年假需要提前多久申请？",
+    "fail_searches": 100,
+    "expected_status": "tool_error",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "工具失败",
+      "明确未完成"
+    ]
+  },
+  {
+    "id": "single_policy",
+    "question": "报销期限多久？",
+    "data": "data/single_policy.json",
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D01"
+    ],
+    "expected_contains": [
+      "30天"
+    ],
+    "acceptance": [
+      "仅单一制度可据文作答"
+    ]
+  },
+  {
+    "id": "transient_read_failure",
+    "question": "年假需要提前多久申请？",
+    "fail_reads": 1,
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D04"
+    ],
+    "acceptance": [
+      "工具失败",
+      "读取失败后恢复"
+    ]
+  },
+  {
+    "id": "step_limit",
+    "question": "年假需要提前多久申请？",
+    "max_steps": 1,
+    "expected_status": "incomplete",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "执行上限"
+    ]
+  },
+  {
+    "id": "clarification",
+    "question": "这个呢？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "信息不足",
+      "追问"
+    ]
+  },
+  {
+    "id": "missing_annual_allowance",
+    "question": "年假一年有多少天？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "同领域资料不足",
+      "引用必须支持具体问题"
+    ]
+  },
+  {
+    "id": "missing_expense_limit",
+    "question": "报销额度上限多少？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "同领域资料不足",
+      "引用必须支持具体问题"
+    ]
+  }
+]

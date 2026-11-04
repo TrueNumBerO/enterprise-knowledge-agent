@@ -1,0 +1,94 @@
+{
+  "input": {
+    "id": "persistent_search_failure",
+    "question": "年假需要提前多久申请？",
+    "fail_searches": 100,
+    "expected_status": "tool_error",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "工具失败",
+      "明确未完成"
+    ]
+  },
+  "output": {
+    "question": "年假需要提前多久申请？",
+    "status": "tool_error",
+    "answer": "工具失败，未能完成资料查证，暂时无法可靠回答。",
+    "citations": [],
+    "gaps": [
+      "需要恢复检索或文档读取工具后重试。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "年假 提前申请 天数"
+        },
+        "reason": "查找年假申请提前期的制度规定",
+        "observation": {
+          "ok": false,
+          "code": "SEARCH_UNAVAILABLE",
+          "error": "合成故障：检索服务暂时不可用",
+          "retryable": true
+        },
+        "observation_summary": "SEARCH_UNAVAILABLE: 合成故障：检索服务暂时不可用"
+      },
+      {
+        "step": 2,
+        "action": "search",
+        "arguments": {
+          "query": "年假 提前申请 天数"
+        },
+        "reason": "检索服务报可重试故障，重试一次",
+        "observation": {
+          "ok": false,
+          "code": "SEARCH_UNAVAILABLE",
+          "error": "合成故障：检索服务暂时不可用",
+          "retryable": true
+        },
+        "observation_summary": "SEARCH_UNAVAILABLE: 合成故障：检索服务暂时不可用"
+      },
+      {
+        "step": 3,
+        "action": "search",
+        "arguments": {
+          "query": "年假 请假 提前 申请 流程"
+        },
+        "reason": "换用不同关键词再次尝试检索年假提前申请规定",
+        "observation": {
+          "ok": false,
+          "code": "SEARCH_UNAVAILABLE",
+          "error": "合成故障：检索服务暂时不可用",
+          "retryable": true
+        },
+        "observation_summary": "SEARCH_UNAVAILABLE: 合成故障：检索服务暂时不可用"
+      },
+      {
+        "step": 4,
+        "action": "finish",
+        "arguments": {
+          "status": "tool_error",
+          "answer": "检索服务连续三次不可用（SEARCH_UNAVAILABLE），无法获取年假提前申请期限的制度原文，因此本轮无法作答。",
+          "citations": [],
+          "gaps": [
+            "检索服务不可用，未能检索到任何年假申请提前期的制度文档",
+            "需在检索恢复后重新查询“年假 提前申请 天数”并读取原文"
+          ]
+        },
+        "reason": "检索工具持续故障，无法获得可引用原文，按工具错误结束",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 4
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

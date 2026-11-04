@@ -1,0 +1,347 @@
+{
+  "input": {
+    "id": "conflict",
+    "question": "报销期限多久？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "文档冲突",
+      "资料不足"
+    ]
+  },
+  "output": {
+    "question": "报销期限多久？",
+    "status": "conflict",
+    "answer": "发现资料冲突，现有资料不足以确定适用范围或优先级：\n[D01 | 2026-01-01] 报销期限为30天。\n[D02 | 2026-02-01] 报销期限为15天。\n[D06 | 2026-04-01] 现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。\n请确认适用制度、部门或向制度负责人核实。",
+    "citations": [
+      {
+        "doc_id": "D01",
+        "version_date": "2026-01-01",
+        "quote": "报销期限为30天。"
+      },
+      {
+        "doc_id": "D02",
+        "version_date": "2026-02-01",
+        "quote": "报销期限为15天。"
+      },
+      {
+        "doc_id": "D06",
+        "version_date": "2026-04-01",
+        "quote": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。"
+      }
+    ],
+    "gaps": [
+      "缺少制度适用范围或优先级。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "报销期限"
+        },
+        "reason": "检索报销期限相关制度",
+        "observation": {
+          "ok": true,
+          "query": "报销期限",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 8.8755
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D01, D02, D06, D03"
+      },
+      {
+        "step": 2,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D01"
+        },
+        "reason": "模型本轮返回3个工具调用，按返回顺序只执行首个；其余不执行、不排队，下一轮根据新观察重新决策。读取原文核实报销期限",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D01",
+            "version_date": "2026-01-01",
+            "title": "费用报销期限规则甲（合成）",
+            "content": "报销期限为30天。员工应在费用发生后提交报销申请。",
+            "topic": "expense_deadline",
+            "facts": [
+              {
+                "key": "expense_deadline",
+                "value": "30天",
+                "quote": "报销期限为30天。"
+              }
+            ],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D01，版本 2026-01-01，25 字符"
+      },
+      {
+        "step": 3,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D02"
+        },
+        "reason": "读取另一份同主题制度原文，核实冲突",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D02",
+            "version_date": "2026-02-01",
+            "title": "费用报销期限规则乙（合成）",
+            "content": "报销期限为15天。员工应在费用发生后提交报销申请。",
+            "topic": "expense_deadline",
+            "facts": [
+              {
+                "key": "expense_deadline",
+                "value": "15天",
+                "quote": "报销期限为15天。"
+              }
+            ],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D02，版本 2026-02-01，25 字符"
+      },
+      {
+        "step": 4,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D06"
+        },
+        "reason": "核实两份制度适用范围与优先级说明",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D06",
+            "version_date": "2026-04-01",
+            "title": "报销规则适用范围核验说明（合成）",
+            "content": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+            "topic": "expense_scope",
+            "facts": [],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D06，版本 2026-04-01，59 字符"
+      },
+      {
+        "step": 5,
+        "action": "finish",
+        "arguments": {
+          "status": "conflict",
+          "answer": "关于报销期限，现有两份同主题制度给出不同时限：规则甲为30天，规则乙为15天。核验说明指出，现有资料未提供这两份制度的适用范围及优先级，存在冲突时应向财务部门确认适用制度，不得自行选择任一时限。因此需请财务部门确认适用哪一份制度后才能确定报销期限。",
+          "citations": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "quote": "报销期限为30天。"
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "quote": "报销期限为15天。"
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "quote": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。"
+            }
+          ],
+          "gaps": [
+            "D01与D02的适用范围及优先级未在现有资料中说明，需财务部门确认适用制度"
+          ]
+        },
+        "reason": "两份同主题制度时限互相矛盾，且无适用范围/优先级可消解，按冲突返回双方证据",
+        "observation": {
+          "ok": false,
+          "code": "validation_error",
+          "error": "发现冲突后尚未补充检索查证适用范围或优先级",
+          "retryable": true
+        },
+        "observation_summary": "validation_error: 发现冲突后尚未补充检索查证适用范围或优先级"
+      },
+      {
+        "step": 6,
+        "action": "search",
+        "arguments": {
+          "query": "报销期限 适用范围 优先级 财务"
+        },
+        "reason": "补充检索以查证两份制度的适用范围或优先级\"}",
+        "observation": {
+          "ok": true,
+          "query": "报销期限 适用范围 优先级 财务",
+          "results": [
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 43.9231
+            },
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 8.8755
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D06, D01, D02, D03"
+      },
+      {
+        "step": 7,
+        "action": "search",
+        "arguments": {
+          "query": "费用报销制度 适用部门 生效日期 版本 废止"
+        },
+        "reason": "进一步检索是否存在其他说明适用范围或优先级的文档",
+        "observation": {
+          "ok": true,
+          "query": "费用报销制度 适用部门 生效日期 版本 废止",
+          "results": [
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 19.8836
+            },
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 11.091
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 11.091
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 9.8871
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D06, D01, D02, D03"
+      },
+      {
+        "step": 8,
+        "action": "finish",
+        "arguments": {
+          "status": "conflict",
+          "answer": "关于报销期限，现有两份同主题制度给出不同时限：规则甲为30天，规则乙为15天。经补充检索（含适用范围、优先级、生效日期、版本废止等关键词），资料库中仅有核验说明指出：现有资料没有提供D01和D02的适用范围及优先级，存在冲突时应向财务部门确认适用制度，不得自行选择任一时限。因此无法消解冲突，需请财务部门确认适用哪一份制度后才能确定报销期限。",
+          "citations": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "quote": "报销期限为30天。"
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "quote": "报销期限为15天。"
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "quote": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。"
+            }
+          ],
+          "gaps": [
+            "D01与D02的适用范围及优先级未在现有资料中说明，补充检索后仍无相关文档，需财务部门确认适用制度"
+          ]
+        },
+        "reason": "已补充检索适用范围/优先级/生效日期等，仍无消解依据，按冲突返回双方证据",
+        "observation": {
+          "ok": true,
+          "validation": "双方引用已校验；冲突未按版本日期或更严格规则擅自裁决"
+        },
+        "observation_summary": "双方引用已校验；冲突未按版本日期或更严格规则擅自裁决"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 8
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

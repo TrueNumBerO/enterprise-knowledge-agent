@@ -1,0 +1,47 @@
+{
+  "input": {
+    "id": "clarification",
+    "question": "这个呢？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "信息不足",
+      "追问"
+    ]
+  },
+  "output": {
+    "question": "这个呢？",
+    "status": "needs_clarification",
+    "answer": "现有问题或资料不足以支持可靠结论，请确认查询主题、适用制度或更新后的原文。",
+    "citations": [],
+    "gaps": [
+      "需要补充明确的问题上下文、制度适用范围或经过核对的资料。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "finish",
+        "arguments": {
+          "status": "needs_clarification",
+          "answer": "您的问题“这个呢？”没有指明具体对象，我无法确定要查询哪项制度内容。请补充说明您想了解的具体事项（例如：某类假期的天数、报销标准、审批流程等），我再为您检索。",
+          "citations": [],
+          "gaps": [
+            "用户未说明所指的具体制度主题或问题对象，缺少可检索的关键信息"
+          ]
+        },
+        "reason": "问题指代不明，无检索线索，需追问澄清",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 1
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "input": {
+    "id": "out_of_scope",
+    "question": "火星表面最高温度是多少？",
+    "expected_status": "out_of_scope",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "资料外问题",
+      "资料不足"
+    ]
+  },
+  "output": {
+    "question": "火星表面最高温度是多少？",
+    "status": "out_of_scope",
+    "answer": "现有知识库未找到支持该问题的资料，无法可靠回答。",
+    "citations": [],
+    "gaps": [
+      "需要补充相关制度或产品资料。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "火星表面最高温度是多少？",
+          "limit": 5
+        },
+        "reason": "先检索问题及必要的历史主题。",
+        "observation": {
+          "ok": true,
+          "query": "火星表面最高温度是多少？",
+          "results": [],
+          "total": 0,
+          "returned": 0
+        },
+        "observation_summary": "检索命中："
+      },
+      {
+        "step": 2,
+        "action": "search",
+        "arguments": {
+          "query": "火星表面最高温度是多少",
+          "limit": 5
+        },
+        "reason": "首轮没有候选，使用更短的主题词补充检索。",
+        "observation": {
+          "ok": true,
+          "query": "火星表面最高温度是多少",
+          "results": [],
+          "total": 0,
+          "returned": 0
+        },
+        "observation_summary": "检索命中："
+      },
+      {
+        "step": 3,
+        "action": "finish",
+        "arguments": {
+          "status": "out_of_scope",
+          "answer": "现有知识库没有相关依据。",
+          "citations": [],
+          "gaps": [
+            "需要补充与问题相关的制度或产品资料。"
+          ]
+        },
+        "reason": "两次检索均未找到资料。",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "mock",
+    "steps": 3
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

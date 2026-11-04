@@ -1,0 +1,79 @@
+{
+  "input": {
+    "id": "out_of_scope",
+    "question": "火星表面最高温度是多少？",
+    "expected_status": "out_of_scope",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "资料外问题",
+      "资料不足"
+    ]
+  },
+  "output": {
+    "question": "火星表面最高温度是多少？",
+    "status": "out_of_scope",
+    "answer": "现有知识库未找到支持该问题的资料，无法可靠回答。",
+    "citations": [],
+    "gaps": [
+      "需要补充相关制度或产品资料。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "火星表面最高温度"
+        },
+        "reason": "检索企业知识库中是否有火星温度相关资料",
+        "observation": {
+          "ok": true,
+          "query": "火星表面最高温度",
+          "results": [],
+          "total": 0,
+          "returned": 0
+        },
+        "observation_summary": "检索命中："
+      },
+      {
+        "step": 2,
+        "action": "search",
+        "arguments": {
+          "query": "火星 温度 行星科学"
+        },
+        "reason": "换关键词补充检索，确认知识库是否涉及火星主题",
+        "observation": {
+          "ok": true,
+          "query": "火星 温度 行星科学",
+          "results": [],
+          "total": 0,
+          "returned": 0
+        },
+        "observation_summary": "检索命中："
+      },
+      {
+        "step": 3,
+        "action": "finish",
+        "arguments": {
+          "status": "out_of_scope",
+          "answer": "知识库中未检索到任何与火星或火星表面温度相关的资料，该问题超出可回答范围。",
+          "citations": [],
+          "gaps": [
+            "知识库无火星/行星科学相关资料，无法提供火星表面最高温度"
+          ]
+        },
+        "reason": "两次检索均无结果，确认无相关资料",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 3
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

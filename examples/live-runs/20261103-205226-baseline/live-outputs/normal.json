@@ -1,0 +1,112 @@
+{
+  "input": {
+    "id": "normal",
+    "question": "年假需要提前多久申请？",
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D04"
+    ],
+    "expected_contains": [
+      "3个工作日"
+    ],
+    "acceptance": [
+      "明确答案"
+    ]
+  },
+  "output": {
+    "question": "年假需要提前多久申请？",
+    "status": "answered",
+    "answer": "根据已读取资料：\n[D04 | 2026-03-01] 年假申请需要提前3个工作日提交给直属主管。",
+    "citations": [
+      {
+        "doc_id": "D04",
+        "version_date": "2026-03-01",
+        "quote": "年假申请需要提前3个工作日提交给直属主管。"
+      }
+    ],
+    "gaps": [],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "年假 提前申请 天数"
+        },
+        "reason": "查找年假申请提前期的制度规定",
+        "observation": {
+          "ok": true,
+          "query": "年假 提前申请 天数",
+          "results": [
+            {
+              "doc_id": "D04",
+              "version_date": "2026-03-01",
+              "title": "员工年假申请规则（合成）",
+              "topic": "annual_leave",
+              "snippet": "年假申请需要提前3个工作日提交给直属主管。年假申请获批后，由人事系统登记休假日期。",
+              "score": 18.3795
+            }
+          ],
+          "total": 1,
+          "returned": 1
+        },
+        "observation_summary": "检索命中：D04"
+      },
+      {
+        "step": 2,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D04"
+        },
+        "reason": "读取年假申请规则原文以确认提前期",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D04",
+            "version_date": "2026-03-01",
+            "title": "员工年假申请规则（合成）",
+            "content": "年假申请需要提前3个工作日提交给直属主管。年假申请获批后，由人事系统登记休假日期。",
+            "topic": "annual_leave",
+            "facts": [
+              {
+                "key": "annual_leave",
+                "value": "提前3个工作日",
+                "quote": "年假申请需要提前3个工作日提交给直属主管。"
+              }
+            ],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D04，版本 2026-03-01，41 字符"
+      },
+      {
+        "step": 3,
+        "action": "finish",
+        "arguments": {
+          "status": "answered",
+          "answer": "年假申请需要提前3个工作日提交给直属主管。",
+          "citations": [
+            {
+              "doc_id": "D04",
+              "version_date": "2026-03-01",
+              "quote": "年假申请需要提前3个工作日提交给直属主管。"
+            }
+          ],
+          "gaps": []
+        },
+        "reason": "已读取原文，明确回答提前期",
+        "observation": {
+          "ok": true,
+          "validation": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+        },
+        "observation_summary": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 3
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

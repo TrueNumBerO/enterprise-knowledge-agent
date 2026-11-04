@@ -1,0 +1,66 @@
+[
+  {
+    "case": "conflict",
+    "replayed_observations": 1,
+    "returned_model": "deepseek-flash",
+    "choices": [
+      {
+        "finish_reason": "tool_calls",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_00_zG7ON9GFRMb4SCrYNHz41317",
+            "type": "function",
+            "function": {
+              "name": "read",
+              "arguments": "{\"doc_id\": \"D01\", \"reason\": \"读取报销期限规则甲原文\"}"
+            }
+          },
+          {
+            "index": 1,
+            "id": "call_01_LzdKD3XVkaIDYpPrcFrK6811",
+            "type": "function",
+            "function": {
+              "name": "read",
+              "arguments": "{\"doc_id\": \"D02\", \"reason\": \"读取报销期限规则乙原文\"}"
+            }
+          },
+          {
+            "index": 2,
+            "id": "call_02_fskUSToqdyWz1ZMgF5cO9577",
+            "type": "function",
+            "function": {
+              "name": "read",
+              "arguments": "{\"doc_id\": \"D06\", \"reason\": \"读取适用范围核验说明原文\"}"
+            }
+          }
+        ],
+        "has_content": false
+      }
+    ],
+    "safe_error": "模型未返回单个合法动作"
+  },
+  {
+    "case": "missing_annual_allowance",
+    "replayed_observations": 5,
+    "returned_model": "deepseek-flash",
+    "choices": [
+      {
+        "finish_reason": "tool_calls",
+        "tool_calls": [
+          {
+            "index": 0,
+            "id": "call_00_TCcJXaFyG8DNljv9w6Du2237",
+            "type": "function",
+            "function": {
+              "name": "finish",
+              "arguments": "{\"status\": \"incomplete\", \"answer\": \"现有资料中未找到关于年假年度天数的规定。检索到的唯一相关文档《员工年假申请规则（合成）》仅规定年假申请需提前3个工作日提交给直属主管，获批后由人事系统登记休假日期，未涉及年假天数或按工龄划分的假期标准。\", \"citations\": [{\"doc_id\": \"D04\", \"version_date\": \"2026-03-01\", \"quote\": \"年假申请需要提前3个工作日提交给直属主管。\"}], \"gaps\": [\"缺少规定年假年度天数（如按累计工作年限划分5/10/15天）的制度文档\", \"现有年假文档仅覆盖申请提前期与登记流程，不含天数标准\"], \"reason\": \"已检索并读取唯一相关文档，其中不含年假天数事实，资料不足\"}"
+            }
+          }
+        ],
+        "has_content": false
+      }
+    ],
+    "parsed_action": "finish"
+  }
+]

@@ -1,0 +1,102 @@
+{
+  "input": {
+    "id": "paraphrase",
+    "question": "垫付费用以后最迟几天内报账？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "改写后的相似问题"
+    ]
+  },
+  "output": {
+    "question": "垫付费用以后最迟几天内报账？",
+    "status": "incomplete",
+    "answer": "模型调用失败，任务未完成。",
+    "citations": [],
+    "gaps": [
+      "请检查模型配置、网络和服务状态。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "垫付费用 报账 期限"
+        },
+        "reason": "检索垫付费用报账时限相关制度",
+        "observation": {
+          "ok": true,
+          "query": "垫付费用 报账 期限",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 18.0232
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 18.0232
+            },
+            {
+              "doc_id": "D06",
+              "version_date": "2026-04-01",
+              "title": "报销规则适用范围核验说明（合成）",
+              "topic": "expense_scope",
+              "snippet": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+              "score": 17.0116
+            },
+            {
+              "doc_id": "D03",
+              "version_date": "2026-01-10",
+              "title": "报销申请流程与材料（合成）",
+              "topic": "expense_process",
+              "snippet": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+              "score": 9.0116
+            }
+          ],
+          "total": 4,
+          "returned": 4
+        },
+        "observation_summary": "检索命中：D01, D02, D06, D03"
+      },
+      {
+        "step": 2,
+        "action": "model_error",
+        "arguments": {},
+        "reason": "模型决策调用失败，未切换到 Mock。",
+        "observation": {
+          "ok": false,
+          "code": "model_error",
+          "error_type": "ModelError"
+        },
+        "observation_summary": "模型不可用或响应格式错误"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 2
+  },
+  "checks": {
+    "passed": false,
+    "errors": [
+      "status expected=conflict, actual=incomplete",
+      "missing citation D01",
+      "missing citation D02",
+      "answer missing 30天",
+      "answer missing 15天"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+flowchart TB
+    U["问题 + 可选对话历史"] --> CLI["CLI 入口 · cli.py"]
+    CLI --> R["单 Agent 运行器 · runtime.py<br/>管理上下文、已读证据和步数"]
+    R --> M["LiveModel 适配器 · models.py"]
+    C["本地 .env · config.py<br/>密钥仅用于请求认证"] -.-> M
+    M <-->|HTTPS 请求 / 工具动作提议| L["DeepSeek Flash<br/>决定搜索、读取或结束"]
+    M --> D{"动作与参数校验<br/>每步只执行一个动作"}
+    D -->|search| S["检索工具<br/>词面 + 中文同义词 → 候选摘要"]
+    D -->|read| T["读取工具<br/>文档 ID → 带版本原文"]
+    K[("本地 JSON 知识库<br/>ID / 日期 / 正文 / 事实标注")] --> S
+    K --> T
+    S --> O["记录真实结果 / 错误<br/>更新 Observation 与 Trace"]
+    T --> O
+    O -->|送入下一轮模型决策| R
+    D -->|finish| V["证据校验 · runtime.py<br/>引用匹配、未读候选、已知冲突、资料缺口"]
+    V -->|需要补证| O
+    V -->|通过并规范化输出| OUT["回答 + 原文引用 + 资料缺口<br/>任务状态 + 完整 Trace"]
+    R -->|达到默认 8 步上限| STOP["incomplete · 明确未完成"]
+    M -->|模型请求或解析失败| STOP
+    STOP --> OUT
+    classDef model fill:#e0e7ff,stroke:#6366f1,color:#1e1b4b;
+    classDef tool fill:#ccfbf1,stroke:#0d9488,color:#134e4a;
+    classDef guard fill:#fef3c7,stroke:#d97706,color:#78350f;
+    classDef data fill:#f1f5f9,stroke:#64748b,color:#0f172a;
+    class M,L model;
+    class S,T tool;
+    class D,V,STOP guard;
+    class C,K,O data;

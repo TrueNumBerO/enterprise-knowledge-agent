@@ -1,0 +1,251 @@
+{
+  "generated_at": "2026-11-03T13:02:19.782113+00:00",
+  "environment": {
+    "python": "3.13.9",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "source_sha256": {
+    "data/knowledge.json": "24ef586f19b5097985328e13d269938539dc55d899c92130f7759d365ab68eec",
+    "data/retrieval-evaluation.json": "bc823f2370d09a4a0f678a74ea7b823060bcb40ac9427ae07a22d1f333886e12",
+    "data/single_policy.json": "68d2f27ea0a529699bb811135d81f9cb47b534be1766b3bc6813b5ef739fbc11",
+    "examples/cases.json": "d975b8972f4181101aba955d41784f6a8c76db8a76d04f98aae1110979bae879",
+    "scripts/check_mutation.py": "f1cc452c04b9127367af61b9f32cb7506f083ed2b788230319b039ac685abfdd",
+    "scripts/evaluate.py": "150fa4d9e9233bafe151d27b6674dc185f4828192ce682baceefc327c0230ae0",
+    "src/kb_agent/__init__.py": "4a885f5dccecc9596af5fac9c33c266a575909e722188e4b6538d4ea91831896",
+    "src/kb_agent/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/kb_agent/cli.py": "f55d117bd667a87d52bb0ff83d09628da0d36445538af06c8ba70160de82d3b7",
+    "src/kb_agent/config.py": "3313c0dfe93ef6846dc5c68639d1f4e31c1b41a0ef80a2ff474f2c5c70d648a9",
+    "src/kb_agent/models.py": "25ae8a5bb3484be1c39b1849cf2691bcad09d4018e915d88009391e5ce1d25a1",
+    "src/kb_agent/retrieval.py": "e8e4184489e20b96bfbce8d165c487f13a76ba6c0f91cc86ef378360578883dd",
+    "src/kb_agent/runtime.py": "a1d181e1bbed01eafb19e4550e4fe8350880fde663c7b86c263af4be54751722",
+    "tests/helpers.py": "a8f9fafeee24d9d9f99af46c8b9bf0b80f40137d687c0b5e5ec34b5ff5c9b58a",
+    "tests/test_cli.py": "8f8a79cb2eee2131eefa549bb935a2e0de68be2394f10f27125bd1de7e1047d9",
+    "tests/test_evaluation.py": "99529c73430ed84b8227385e118017a4b29d4f4c0fc06f1ed0cd33e4cf47a383",
+    "tests/test_live_protocol.py": "e2a5f160e9816e0ad9070c56a33354e347704038e395452899e03909e9f2eb22",
+    "tests/test_local_config.py": "8463385d7457b3ed4ecb0af170abde0ae283a09595fbc5d092614ed98db4afa6",
+    "tests/test_retrieval.py": "667d28a4c75e171b1aa867e9dd5050325485983e98d38c907acad5ae31704408",
+    "tests/test_retrieval_comparison.py": "4d464e2db596c5fa52f1e91e7c9d48e67ce1b51e1969f20e20d50a3d7771c840",
+    "tests/test_runtime.py": "a9c588c45a5ac2557642b3e9eaa15884f1305ffc4718547b4197c327afb71694"
+  },
+  "model_mode": "live",
+  "model_config": {
+    "model": "deepseek-flash",
+    "endpoint": "https://api.deepseek.com/chat/completions",
+    "timeout_seconds": 60.0,
+    "thinking": "disabled",
+    "max_output_tokens": 4096
+  },
+  "evidence_scope": "真实配置模型运行；需结合逐项实际输出检查语义正确性。",
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "cases": [
+    {
+      "id": "normal",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "passed": true,
+      "errors": [],
+      "steps": 3,
+      "actions": [
+        "search",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/normal.json",
+      "duration_seconds": 5.02
+    },
+    {
+      "id": "conflict",
+      "expected_status": "conflict",
+      "actual_status": "conflict",
+      "passed": true,
+      "errors": [],
+      "steps": 8,
+      "actions": [
+        "search",
+        "read",
+        "read",
+        "read",
+        "finish",
+        "search",
+        "search",
+        "finish"
+      ],
+      "record": "examples/live-outputs/conflict.json",
+      "duration_seconds": 13.5431
+    },
+    {
+      "id": "out_of_scope",
+      "expected_status": "out_of_scope",
+      "actual_status": "out_of_scope",
+      "passed": true,
+      "errors": [],
+      "steps": 3,
+      "actions": [
+        "search",
+        "search",
+        "finish"
+      ],
+      "record": "examples/live-outputs/out_of_scope.json",
+      "duration_seconds": 4.3164
+    },
+    {
+      "id": "paraphrase",
+      "expected_status": "conflict",
+      "actual_status": "conflict",
+      "passed": true,
+      "errors": [],
+      "steps": 8,
+      "actions": [
+        "search",
+        "read",
+        "read",
+        "read",
+        "finish",
+        "search",
+        "search",
+        "finish"
+      ],
+      "record": "examples/live-outputs/paraphrase.json",
+      "duration_seconds": 11.8518
+    },
+    {
+      "id": "context",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "passed": true,
+      "errors": [],
+      "steps": 3,
+      "actions": [
+        "search",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/context.json",
+      "duration_seconds": 4.2507
+    },
+    {
+      "id": "transient_search_failure",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "passed": true,
+      "errors": [],
+      "steps": 4,
+      "actions": [
+        "search",
+        "search",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/transient_search_failure.json",
+      "duration_seconds": 5.5043
+    },
+    {
+      "id": "persistent_search_failure",
+      "expected_status": "tool_error",
+      "actual_status": "tool_error",
+      "passed": true,
+      "errors": [],
+      "steps": 4,
+      "actions": [
+        "search",
+        "search",
+        "search",
+        "finish"
+      ],
+      "record": "examples/live-outputs/persistent_search_failure.json",
+      "duration_seconds": 6.0404
+    },
+    {
+      "id": "single_policy",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "passed": true,
+      "errors": [],
+      "steps": 3,
+      "actions": [
+        "search",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/single_policy.json",
+      "duration_seconds": 4.5587
+    },
+    {
+      "id": "transient_read_failure",
+      "expected_status": "answered",
+      "actual_status": "answered",
+      "passed": true,
+      "errors": [],
+      "steps": 4,
+      "actions": [
+        "search",
+        "read",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/transient_read_failure.json",
+      "duration_seconds": 4.2853
+    },
+    {
+      "id": "step_limit",
+      "expected_status": "incomplete",
+      "actual_status": "incomplete",
+      "passed": true,
+      "errors": [],
+      "steps": 1,
+      "actions": [
+        "search"
+      ],
+      "record": "examples/live-outputs/step_limit.json",
+      "duration_seconds": 1.3042
+    },
+    {
+      "id": "clarification",
+      "expected_status": "needs_clarification",
+      "actual_status": "needs_clarification",
+      "passed": true,
+      "errors": [],
+      "steps": 1,
+      "actions": [
+        "finish"
+      ],
+      "record": "examples/live-outputs/clarification.json",
+      "duration_seconds": 1.8992
+    },
+    {
+      "id": "missing_annual_allowance",
+      "expected_status": "needs_clarification",
+      "actual_status": "needs_clarification",
+      "passed": true,
+      "errors": [],
+      "steps": 5,
+      "actions": [
+        "search",
+        "read",
+        "search",
+        "search",
+        "finish"
+      ],
+      "record": "examples/live-outputs/missing_annual_allowance.json",
+      "duration_seconds": 7.3342
+    },
+    {
+      "id": "missing_expense_limit",
+      "expected_status": "needs_clarification",
+      "actual_status": "needs_clarification",
+      "passed": true,
+      "errors": [],
+      "steps": 4,
+      "actions": [
+        "search",
+        "search",
+        "read",
+        "finish"
+      ],
+      "record": "examples/live-outputs/missing_expense_limit.json",
+      "duration_seconds": 6.876
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "metric": "recall@2",
+  "scope": "两个手工合成查询，不代表通用检索质量",
+  "method": "同一原文、同一检索函数，仅对比 use_synonyms=False/True；输出来自本次实际调用。",
+  "corpus": "data/knowledge.json",
+  "cases": [
+    {
+      "id": "canonical",
+      "query": "报销期限多久？",
+      "expected_doc_ids": [
+        "D01",
+        "D02"
+      ],
+      "lexical": {
+        "use_synonyms": false,
+        "observation": {
+          "ok": true,
+          "query": "报销期限多久？",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 2.8987
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 2.8987
+            }
+          ],
+          "total": 4,
+          "returned": 2
+        },
+        "recall_at_2": 1.0
+      },
+      "synonyms": {
+        "use_synonyms": true,
+        "observation": {
+          "ok": true,
+          "query": "报销期限多久？",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 18.8987
+            }
+          ],
+          "total": 4,
+          "returned": 2
+        },
+        "recall_at_2": 1.0
+      }
+    },
+    {
+      "id": "paraphrase_no_shared_words",
+      "query": "垫付最迟何时报账？",
+      "expected_doc_ids": [
+        "D01",
+        "D02"
+      ],
+      "lexical": {
+        "use_synonyms": false,
+        "observation": {
+          "ok": true,
+          "query": "垫付最迟何时报账？",
+          "results": [],
+          "total": 0,
+          "returned": 0
+        },
+        "recall_at_2": 0.0
+      },
+      "synonyms": {
+        "use_synonyms": true,
+        "observation": {
+          "ok": true,
+          "query": "垫付最迟何时报账？",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 16.0
+            },
+            {
+              "doc_id": "D02",
+              "version_date": "2026-02-01",
+              "title": "费用报销期限规则乙（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为15天。员工应在费用发生后提交报销申请。",
+              "score": 16.0
+            }
+          ],
+          "total": 4,
+          "returned": 2
+        },
+        "recall_at_2": 1.0
+      }
+    }
+  ],
+  "mean_recall_at_2": {
+    "lexical": 0.5,
+    "synonyms": 1.0
+  }
+}

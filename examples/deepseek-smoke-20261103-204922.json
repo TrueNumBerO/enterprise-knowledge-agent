@@ -1,0 +1,25 @@
+{
+  "question": "年假需要提前多久申请？",
+  "status": "incomplete",
+  "answer": "模型调用失败，任务未完成。",
+  "citations": [],
+  "gaps": [
+    "请检查模型配置、网络和服务状态。"
+  ],
+  "trace": [
+    {
+      "step": 1,
+      "action": "model_error",
+      "arguments": {},
+      "reason": "模型决策调用失败，未切换到 Mock。",
+      "observation": {
+        "ok": false,
+        "code": "model_error",
+        "error_type": "ModelError"
+      },
+      "observation_summary": "模型不可用或响应格式错误"
+    }
+  ],
+  "model_mode": "live",
+  "steps": 1
+}

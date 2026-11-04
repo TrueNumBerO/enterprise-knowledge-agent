@@ -1,0 +1,113 @@
+{
+  "input": {
+    "id": "single_policy",
+    "question": "报销期限多久？",
+    "data": "data/single_policy.json",
+    "expected_status": "answered",
+    "expected_doc_ids": [
+      "D01"
+    ],
+    "expected_contains": [
+      "30天"
+    ],
+    "acceptance": [
+      "仅单一制度可据文作答"
+    ]
+  },
+  "output": {
+    "question": "报销期限多久？",
+    "status": "answered",
+    "answer": "根据已读取资料：\n[D01 | 2026-01-01] 报销期限为30天。",
+    "citations": [
+      {
+        "doc_id": "D01",
+        "version_date": "2026-01-01",
+        "quote": "报销期限为30天。"
+      }
+    ],
+    "gaps": [],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "报销期限"
+        },
+        "reason": "检索报销期限相关制度",
+        "observation": {
+          "ok": true,
+          "query": "报销期限",
+          "results": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "title": "费用报销期限规则甲（合成）",
+              "topic": "expense_deadline",
+              "snippet": "报销期限为30天。员工应在费用发生后提交报销申请。",
+              "score": 19.2958
+            }
+          ],
+          "total": 1,
+          "returned": 1
+        },
+        "observation_summary": "检索命中：D01"
+      },
+      {
+        "step": 2,
+        "action": "read",
+        "arguments": {
+          "doc_id": "D01"
+        },
+        "reason": "读取原文以确认报销期限的完整规定",
+        "observation": {
+          "ok": true,
+          "document": {
+            "doc_id": "D01",
+            "version_date": "2026-01-01",
+            "title": "费用报销期限规则甲（合成）",
+            "content": "报销期限为30天。员工应在费用发生后提交报销申请。",
+            "topic": "expense_deadline",
+            "facts": [
+              {
+                "key": "expense_deadline",
+                "value": "30天",
+                "quote": "报销期限为30天。"
+              }
+            ],
+            "discarded_fact_count": 0
+          },
+          "discarded_fact_count": 0
+        },
+        "observation_summary": "读取 D01，版本 2026-01-01，25 字符"
+      },
+      {
+        "step": 3,
+        "action": "finish",
+        "arguments": {
+          "status": "answered",
+          "answer": "报销期限为30天，员工应在费用发生后提交报销申请。",
+          "citations": [
+            {
+              "doc_id": "D01",
+              "version_date": "2026-01-01",
+              "quote": "报销期限为30天。"
+            }
+          ],
+          "gaps": []
+        },
+        "reason": "已读取原文，明确报销期限为30天",
+        "observation": {
+          "ok": true,
+          "validation": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+        },
+        "observation_summary": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 3
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

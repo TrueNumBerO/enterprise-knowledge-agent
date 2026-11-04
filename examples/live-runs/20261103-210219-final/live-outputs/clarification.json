@@ -1,0 +1,47 @@
+{
+  "input": {
+    "id": "clarification",
+    "question": "这个呢？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "信息不足",
+      "追问"
+    ]
+  },
+  "output": {
+    "question": "这个呢？",
+    "status": "needs_clarification",
+    "answer": "现有问题或资料不足以支持可靠结论，请确认查询主题、适用制度或更新后的原文。",
+    "citations": [],
+    "gaps": [
+      "需要补充明确的问题上下文、制度适用范围或经过核对的资料。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "finish",
+        "arguments": {
+          "status": "needs_clarification",
+          "answer": "您的问题“这个呢？”缺少指代对象，我无法确定要查询哪项制度或哪个事实。请补充说明具体想了解的内容（例如制度名称、适用场景或要问的具体问题）。",
+          "citations": [],
+          "gaps": [
+            "用户问题缺少指代对象，未说明要查询的制度主题或具体事实维度"
+          ]
+        },
+        "reason": "问题无指代对象，无法确定检索主题，需向用户追问",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 1
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

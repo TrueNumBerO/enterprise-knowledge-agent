@@ -1,0 +1,47 @@
+{
+  "input": {
+    "id": "clarification",
+    "question": "这个呢？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "信息不足",
+      "追问"
+    ]
+  },
+  "output": {
+    "question": "这个呢？",
+    "status": "needs_clarification",
+    "answer": "现有问题或资料不足以支持可靠结论，请确认查询主题、适用制度或更新后的原文。",
+    "citations": [],
+    "gaps": [
+      "需要补充明确的问题上下文、制度适用范围或经过核对的资料。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "finish",
+        "arguments": {
+          "status": "needs_clarification",
+          "answer": "请补充您要查询的制度、产品或事项。",
+          "citations": [],
+          "gaps": [
+            "缺少查询主题或可用对话上下文。"
+          ]
+        },
+        "reason": "指代不明确且没有可用历史。",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "mock",
+    "steps": 1
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

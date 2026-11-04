@@ -1,0 +1,55 @@
+[
+  {
+    "id": "conflict",
+    "question": "报销期限多久？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "文档冲突",
+      "资料不足"
+    ]
+  },
+  {
+    "id": "missing_annual_allowance",
+    "question": "年假一年有多少天？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "同领域资料不足",
+      "引用必须支持具体问题"
+    ]
+  },
+  {
+    "id": "missing_expense_limit",
+    "question": "报销额度上限多少？",
+    "expected_status": "needs_clarification",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "同领域资料不足",
+      "引用必须支持具体问题"
+    ]
+  },
+  {
+    "id": "paraphrase",
+    "question": "垫付费用以后最迟几天内报账？",
+    "expected_status": "conflict",
+    "expected_doc_ids": [
+      "D01",
+      "D02"
+    ],
+    "expected_contains": [
+      "30天",
+      "15天"
+    ],
+    "acceptance": [
+      "改写后的相似问题"
+    ]
+  }
+]

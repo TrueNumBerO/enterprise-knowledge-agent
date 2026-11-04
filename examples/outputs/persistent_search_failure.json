@@ -1,0 +1,80 @@
+{
+  "input": {
+    "id": "persistent_search_failure",
+    "question": "年假需要提前多久申请？",
+    "fail_searches": 100,
+    "expected_status": "tool_error",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "工具失败",
+      "明确未完成"
+    ]
+  },
+  "output": {
+    "question": "年假需要提前多久申请？",
+    "status": "tool_error",
+    "answer": "工具失败，未能完成资料查证，暂时无法可靠回答。",
+    "citations": [],
+    "gaps": [
+      "需要恢复检索或文档读取工具后重试。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "年假需要提前多久申请？",
+          "limit": 5
+        },
+        "reason": "先检索问题及必要的历史主题。",
+        "observation": {
+          "ok": false,
+          "code": "SEARCH_UNAVAILABLE",
+          "error": "合成故障：检索服务暂时不可用",
+          "retryable": true
+        },
+        "observation_summary": "SEARCH_UNAVAILABLE: 合成故障：检索服务暂时不可用"
+      },
+      {
+        "step": 2,
+        "action": "search",
+        "arguments": {
+          "query": "年假需要提前多久申请？",
+          "limit": 5
+        },
+        "reason": "工具标记为暂时失败，结合观察只再尝试一次。",
+        "observation": {
+          "ok": false,
+          "code": "SEARCH_UNAVAILABLE",
+          "error": "合成故障：检索服务暂时不可用",
+          "retryable": true
+        },
+        "observation_summary": "SEARCH_UNAVAILABLE: 合成故障：检索服务暂时不可用"
+      },
+      {
+        "step": 3,
+        "action": "finish",
+        "arguments": {
+          "status": "tool_error",
+          "answer": "工具失败，无法完成资料查证。",
+          "citations": [],
+          "gaps": [
+            "需要恢复检索或文档读取工具后重试。"
+          ]
+        },
+        "reason": "观察到工具连续失败或不可重试错误。",
+        "observation": {
+          "ok": true,
+          "validation": "引用格式与原文一致"
+        },
+        "observation_summary": "引用格式与原文一致"
+      }
+    ],
+    "model_mode": "mock",
+    "steps": 3
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

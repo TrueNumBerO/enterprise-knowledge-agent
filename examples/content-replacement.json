@@ -1,0 +1,386 @@
+{
+  "generated_at": "2026-11-03T13:01:39.778946+00:00",
+  "python": "3.13.9",
+  "model_mode": "mock",
+  "evidence_scope": "三次实际离线运行验证内容替换与旧标注失效；不证明真实模型语义判断能力。",
+  "method": "保持问题与文档ID不变，依次替换正文、再同步事实标注；每次新建知识库重新读取。",
+  "source_sha256": {
+    "scripts/check_mutation.py": "f1cc452c04b9127367af61b9f32cb7506f083ed2b788230319b039ac685abfdd",
+    "src/kb_agent/__init__.py": "4a885f5dccecc9596af5fac9c33c266a575909e722188e4b6538d4ea91831896",
+    "src/kb_agent/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/kb_agent/cli.py": "f55d117bd667a87d52bb0ff83d09628da0d36445538af06c8ba70160de82d3b7",
+    "src/kb_agent/config.py": "3313c0dfe93ef6846dc5c68639d1f4e31c1b41a0ef80a2ff474f2c5c70d648a9",
+    "src/kb_agent/models.py": "25ae8a5bb3484be1c39b1849cf2691bcad09d4018e915d88009391e5ce1d25a1",
+    "src/kb_agent/retrieval.py": "e8e4184489e20b96bfbce8d165c487f13a76ba6c0f91cc86ef378360578883dd",
+    "src/kb_agent/runtime.py": "a1d181e1bbed01eafb19e4550e4fe8350880fde663c7b86c263af4be54751722"
+  },
+  "total": 3,
+  "passed": 3,
+  "failed": 0,
+  "cases": [
+    {
+      "id": "original",
+      "input": {
+        "question": "报销期限多久？",
+        "knowledge_base": {
+          "documents": [
+            {
+              "doc_id": "M01",
+              "version_date": "2026-01-01",
+              "title": "合成报销期限制度",
+              "topic": "expense_deadline",
+              "content": "报销申请须在费用发生后30天内提交。",
+              "facts": [
+                {
+                  "key": "expense_deadline",
+                  "value": "30天",
+                  "quote": "报销申请须在费用发生后30天内提交。"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expected_status": "answered",
+      "output": {
+        "question": "报销期限多久？",
+        "status": "answered",
+        "answer": "根据已读取资料：\n[M01 | 2026-01-01] 报销申请须在费用发生后30天内提交。",
+        "citations": [
+          {
+            "doc_id": "M01",
+            "version_date": "2026-01-01",
+            "quote": "报销申请须在费用发生后30天内提交。"
+          }
+        ],
+        "gaps": [],
+        "trace": [
+          {
+            "step": 1,
+            "action": "search",
+            "arguments": {
+              "query": "报销期限多久？",
+              "limit": 5
+            },
+            "reason": "先检索问题及必要的历史主题。",
+            "observation": {
+              "ok": true,
+              "query": "报销期限多久？",
+              "results": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "title": "合成报销期限制度",
+                  "topic": "expense_deadline",
+                  "snippet": "报销申请须在费用发生后30天内提交。",
+                  "score": 18.0794
+                }
+              ],
+              "total": 1,
+              "returned": 1
+            },
+            "observation_summary": "检索命中：M01"
+          },
+          {
+            "step": 2,
+            "action": "read",
+            "arguments": {
+              "doc_id": "M01"
+            },
+            "reason": "读取候选原文，核对版本与引用依据。",
+            "observation": {
+              "ok": true,
+              "document": {
+                "doc_id": "M01",
+                "version_date": "2026-01-01",
+                "title": "合成报销期限制度",
+                "topic": "expense_deadline",
+                "content": "报销申请须在费用发生后30天内提交。",
+                "facts": [
+                  {
+                    "key": "expense_deadline",
+                    "value": "30天",
+                    "quote": "报销申请须在费用发生后30天内提交。"
+                  }
+                ],
+                "discarded_fact_count": 0
+              },
+              "discarded_fact_count": 0
+            },
+            "observation_summary": "读取 M01，版本 2026-01-01，18 字符"
+          },
+          {
+            "step": 3,
+            "action": "finish",
+            "arguments": {
+              "status": "answered",
+              "answer": "根据已核验资料回答。",
+              "citations": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "quote": "报销申请须在费用发生后30天内提交。"
+                }
+              ],
+              "gaps": []
+            },
+            "reason": "相关候选已读取且未发现已标注规则冲突，返回原文依据。",
+            "observation": {
+              "ok": true,
+              "validation": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+            },
+            "observation_summary": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+          }
+        ],
+        "model_mode": "mock",
+        "steps": 3
+      },
+      "checks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "content_changed_stale_annotation",
+      "input": {
+        "question": "报销期限多久？",
+        "knowledge_base": {
+          "documents": [
+            {
+              "doc_id": "M01",
+              "version_date": "2026-01-01",
+              "title": "合成报销期限制度",
+              "topic": "expense_deadline",
+              "content": "报销申请须在费用发生后7天内提交。",
+              "facts": [
+                {
+                  "key": "expense_deadline",
+                  "value": "30天",
+                  "quote": "报销申请须在费用发生后30天内提交。"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expected_status": "needs_clarification",
+      "output": {
+        "question": "报销期限多久？",
+        "status": "needs_clarification",
+        "answer": "原文已更新，但相关事实标注失效。请核对新原文并确认适用制度。",
+        "citations": [
+          {
+            "doc_id": "M01",
+            "version_date": "2026-01-01",
+            "quote": "报销申请须在费用发生后7天内提交。"
+          }
+        ],
+        "gaps": [
+          "需要核对更新后的原文与事实标注，暂时无法可靠判断规则是否一致。"
+        ],
+        "trace": [
+          {
+            "step": 1,
+            "action": "search",
+            "arguments": {
+              "query": "报销期限多久？",
+              "limit": 5
+            },
+            "reason": "先检索问题及必要的历史主题。",
+            "observation": {
+              "ok": true,
+              "query": "报销期限多久？",
+              "results": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "title": "合成报销期限制度",
+                  "topic": "expense_deadline",
+                  "snippet": "报销申请须在费用发生后7天内提交。",
+                  "score": 18.0794
+                }
+              ],
+              "total": 1,
+              "returned": 1
+            },
+            "observation_summary": "检索命中：M01"
+          },
+          {
+            "step": 2,
+            "action": "read",
+            "arguments": {
+              "doc_id": "M01"
+            },
+            "reason": "读取候选原文，核对版本与引用依据。",
+            "observation": {
+              "ok": true,
+              "document": {
+                "doc_id": "M01",
+                "version_date": "2026-01-01",
+                "title": "合成报销期限制度",
+                "topic": "expense_deadline",
+                "content": "报销申请须在费用发生后7天内提交。",
+                "facts": [],
+                "discarded_fact_count": 1
+              },
+              "discarded_fact_count": 1
+            },
+            "observation_summary": "读取 M01，版本 2026-01-01，17 字符"
+          },
+          {
+            "step": 3,
+            "action": "finish",
+            "arguments": {
+              "status": "needs_clarification",
+              "answer": "原文与结构化事实标注不一致，请确认更新后的制度。",
+              "citations": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "quote": "报销申请须在费用发生后7天内提交。"
+                }
+              ],
+              "gaps": [
+                "资料标注过期；离线模型无法可靠判断新的语义关系。"
+              ]
+            },
+            "reason": "已读取更新后的原文，拒绝继续引用过期事实标注。",
+            "observation": {
+              "ok": true,
+              "validation": "引用格式与原文一致"
+            },
+            "observation_summary": "引用格式与原文一致"
+          }
+        ],
+        "model_mode": "mock",
+        "steps": 3
+      },
+      "checks": {
+        "passed": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "content_and_annotation_updated",
+      "input": {
+        "question": "报销期限多久？",
+        "knowledge_base": {
+          "documents": [
+            {
+              "doc_id": "M01",
+              "version_date": "2026-01-01",
+              "title": "合成报销期限制度",
+              "topic": "expense_deadline",
+              "content": "报销申请须在费用发生后7天内提交。",
+              "facts": [
+                {
+                  "key": "expense_deadline",
+                  "value": "7天",
+                  "quote": "报销申请须在费用发生后7天内提交。"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expected_status": "answered",
+      "output": {
+        "question": "报销期限多久？",
+        "status": "answered",
+        "answer": "根据已读取资料：\n[M01 | 2026-01-01] 报销申请须在费用发生后7天内提交。",
+        "citations": [
+          {
+            "doc_id": "M01",
+            "version_date": "2026-01-01",
+            "quote": "报销申请须在费用发生后7天内提交。"
+          }
+        ],
+        "gaps": [],
+        "trace": [
+          {
+            "step": 1,
+            "action": "search",
+            "arguments": {
+              "query": "报销期限多久？",
+              "limit": 5
+            },
+            "reason": "先检索问题及必要的历史主题。",
+            "observation": {
+              "ok": true,
+              "query": "报销期限多久？",
+              "results": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "title": "合成报销期限制度",
+                  "topic": "expense_deadline",
+                  "snippet": "报销申请须在费用发生后7天内提交。",
+                  "score": 18.0794
+                }
+              ],
+              "total": 1,
+              "returned": 1
+            },
+            "observation_summary": "检索命中：M01"
+          },
+          {
+            "step": 2,
+            "action": "read",
+            "arguments": {
+              "doc_id": "M01"
+            },
+            "reason": "读取候选原文，核对版本与引用依据。",
+            "observation": {
+              "ok": true,
+              "document": {
+                "doc_id": "M01",
+                "version_date": "2026-01-01",
+                "title": "合成报销期限制度",
+                "topic": "expense_deadline",
+                "content": "报销申请须在费用发生后7天内提交。",
+                "facts": [
+                  {
+                    "key": "expense_deadline",
+                    "value": "7天",
+                    "quote": "报销申请须在费用发生后7天内提交。"
+                  }
+                ],
+                "discarded_fact_count": 0
+              },
+              "discarded_fact_count": 0
+            },
+            "observation_summary": "读取 M01，版本 2026-01-01，17 字符"
+          },
+          {
+            "step": 3,
+            "action": "finish",
+            "arguments": {
+              "status": "answered",
+              "answer": "根据已核验资料回答。",
+              "citations": [
+                {
+                  "doc_id": "M01",
+                  "version_date": "2026-01-01",
+                  "quote": "报销申请须在费用发生后7天内提交。"
+                }
+              ],
+              "gaps": []
+            },
+            "reason": "相关候选已读取且未发现已标注规则冲突，返回原文依据。",
+            "observation": {
+              "ok": true,
+              "validation": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+            },
+            "observation_summary": "模型回答已规范化为通过校验的原文摘录，未验证的自由生成断言不发布"
+          }
+        ],
+        "model_mode": "mock",
+        "steps": 3
+      },
+      "checks": {
+        "passed": true,
+        "errors": []
+      }
+    }
+  ]
+}

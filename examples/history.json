@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "我想了解报销流程。"
+  },
+  {
+    "role": "assistant",
+    "content": "可以查询报销申请流程和所需材料。"
+  }
+]

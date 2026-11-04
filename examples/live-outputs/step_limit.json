@@ -1,0 +1,54 @@
+{
+  "input": {
+    "id": "step_limit",
+    "question": "年假需要提前多久申请？",
+    "max_steps": 1,
+    "expected_status": "incomplete",
+    "expected_doc_ids": [],
+    "acceptance": [
+      "执行上限"
+    ]
+  },
+  "output": {
+    "question": "年假需要提前多久申请？",
+    "status": "incomplete",
+    "answer": "已达到执行步数上限，任务未完成。",
+    "citations": [],
+    "gaps": [
+      "最多允许 1 次决策；请增加上限或缩小问题范围。"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "action": "search",
+        "arguments": {
+          "query": "年假 提前申请 天数"
+        },
+        "reason": "检索年假申请提前期的制度依据",
+        "observation": {
+          "ok": true,
+          "query": "年假 提前申请 天数",
+          "results": [
+            {
+              "doc_id": "D04",
+              "version_date": "2026-03-01",
+              "title": "员工年假申请规则（合成）",
+              "topic": "annual_leave",
+              "snippet": "年假申请需要提前3个工作日提交给直属主管。年假申请获批后，由人事系统登记休假日期。",
+              "score": 18.3795
+            }
+          ],
+          "total": 1,
+          "returned": 1
+        },
+        "observation_summary": "检索命中：D04"
+      }
+    ],
+    "model_mode": "live",
+    "steps": 1
+  },
+  "checks": {
+    "passed": true,
+    "errors": []
+  }
+}

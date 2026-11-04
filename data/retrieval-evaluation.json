@@ -1,0 +1,22 @@
+{
+  "metric": "recall@2",
+  "scope": "两个手工合成查询，不代表通用检索质量",
+  "cases": [
+    {
+      "id": "canonical",
+      "query": "报销期限多久？",
+      "expected_doc_ids": [
+        "D01",
+        "D02"
+      ]
+    },
+    {
+      "id": "paraphrase_no_shared_words",
+      "query": "垫付最迟何时报账？",
+      "expected_doc_ids": [
+        "D01",
+        "D02"
+      ]
+    }
+  ]
+}

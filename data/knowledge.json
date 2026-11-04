@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "description": "仅用于工程验收的合成制度；无真实公司或员工资料。版本日期不代表优先级。",
+  "documents": [
+    {
+      "doc_id": "D01",
+      "version_date": "2026-01-01",
+      "title": "费用报销期限规则甲（合成）",
+      "content": "报销期限为30天。员工应在费用发生后提交报销申请。",
+      "topic": "expense_deadline",
+      "facts": [
+        {
+          "key": "expense_deadline",
+          "value": "30天",
+          "quote": "报销期限为30天。"
+        }
+      ]
+    },
+    {
+      "doc_id": "D02",
+      "version_date": "2026-02-01",
+      "title": "费用报销期限规则乙（合成）",
+      "content": "报销期限为15天。员工应在费用发生后提交报销申请。",
+      "topic": "expense_deadline",
+      "facts": [
+        {
+          "key": "expense_deadline",
+          "value": "15天",
+          "quote": "报销期限为15天。"
+        }
+      ]
+    },
+    {
+      "doc_id": "D03",
+      "version_date": "2026-01-10",
+      "title": "报销申请流程与材料（合成）",
+      "content": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。报销所需材料为费用申请单和发票原件扫描件。",
+      "topic": "expense_process",
+      "facts": [
+        {
+          "key": "expense_process",
+          "value": "填写费用申请单，上传发票原件扫描件，提交直属主管审批",
+          "quote": "报销申请流程为：填写费用申请单，上传发票原件扫描件，提交直属主管审批。"
+        },
+        {
+          "key": "invoice_requirement",
+          "value": "费用申请单和发票原件扫描件",
+          "quote": "报销所需材料为费用申请单和发票原件扫描件。"
+        }
+      ]
+    },
+    {
+      "doc_id": "D04",
+      "version_date": "2026-03-01",
+      "title": "员工年假申请规则（合成）",
+      "content": "年假申请需要提前3个工作日提交给直属主管。年假申请获批后，由人事系统登记休假日期。",
+      "topic": "annual_leave",
+      "facts": [
+        {
+          "key": "annual_leave",
+          "value": "提前3个工作日",
+          "quote": "年假申请需要提前3个工作日提交给直属主管。"
+        }
+      ]
+    },
+    {
+      "doc_id": "D05",
+      "version_date": "2026-03-10",
+      "title": "IT技术支持服务台（合成）",
+      "content": "电脑或系统故障请联系IT服务台，服务邮箱为helpdesk@example.invalid。该地址为合成示例，不能用于实际报障。",
+      "topic": "support_contact",
+      "facts": [
+        {
+          "key": "support_contact",
+          "value": "helpdesk@example.invalid",
+          "quote": "电脑或系统故障请联系IT服务台，服务邮箱为helpdesk@example.invalid。"
+        }
+      ]
+    },
+    {
+      "doc_id": "D06",
+      "version_date": "2026-04-01",
+      "title": "报销规则适用范围核验说明（合成）",
+      "content": "现有资料没有提供D01和D02的适用范围及优先级。报销期限存在冲突时，应向财务部门确认适用制度，不得自行选择任一时限。",
+      "topic": "expense_scope",
+      "facts": []
+    }
+  ]
+}

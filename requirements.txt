@@ -1,0 +1,2 @@
+# No third-party runtime or test dependencies.
+# Python >= 3.11; verified version is recorded in examples/evaluation.json.
